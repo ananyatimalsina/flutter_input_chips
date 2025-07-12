@@ -67,6 +67,8 @@ class FlutterInputChips extends StatefulWidget {
   /// controller for the input field
   final InputChipsController? controller;
 
+  final String? automaticChipValue;
+
   const FlutterInputChips({
     super.key,
     required this.onChanged,
@@ -82,6 +84,7 @@ class FlutterInputChips extends StatefulWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     this.chipCanDelete = true,
     this.chipSpacing = 5,
+    this.automaticChipValue,
     this.maxChips,
     this.decoration,
     this.chipTextStyle,
@@ -170,7 +173,7 @@ class FlutterInputChipsState extends State<FlutterInputChips> {
             controller: textCtrl,
             onSubmitted: (value) => addChip(value),
             onChanged: (value) {
-              if (value.contains(",")) addChip(value.replaceAll(",", ""));
+              if (widget.automaticChipValue != null && value.contains(widget.automaticChipValue!)) addChip(value.replaceAll(widget.automaticChipValue!, ""));
             },
             onEditingComplete: () {}, // this prevents keyboard from closing
             decoration: widget.inputDecoration,
